@@ -30,7 +30,7 @@ public class WebstaurantStoreStepDef {
     }
     @Then("User adds last item to cart and clears the cart to validate message {string}")
     public void user_adds_last_item_to_cart_and_clears_the_cart_to_validate_message(String expectedMessage) {
-    cart.validateCartIsEmpty(expectedMessage);
+    cart.validateCartIsEmpty(driver,expectedMessage);
     }
 
 
