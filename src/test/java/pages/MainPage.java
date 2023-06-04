@@ -11,13 +11,10 @@ public class MainPage {
     public MainPage(WebDriver driver){
         PageFactory.initElements(driver,this);
     }
-
     @FindBy(xpath = "//input[@aria-owns='awesomplete_list_1']")
     WebElement searchBar;
-
     public void searchForProduct(String productName){
        searchBar.clear();
        searchBar.sendKeys(productName, Keys.ENTER);
     }
-
 }

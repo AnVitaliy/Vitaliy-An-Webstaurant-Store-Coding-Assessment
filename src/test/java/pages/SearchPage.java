@@ -20,22 +20,13 @@ public class SearchPage {
     }
     @FindBy(xpath = "//span[@data-testid='itemDescription']" )
     List<WebElement> listOfProducts;
-    
     @FindBy(xpath = "//li[@class='inline-block leading-4 align-top rounded-r-md']")
-    WebElement nextButton;
-
+    WebElement nextPageButton;
     @FindBy(xpath = "//span//span[3]")
     List<WebElement> numberOfProduct;
-
     @FindBy(xpath = "//input[@class='btn btn-cart btn-small']")
-    List <WebElement> addToCartButtons;
 
-    @FindBy(xpath = "//a[.='View Cart']")
-    WebElement viewCartButton;
-//    List<String> itemsWithNoTableWord = new ArrayList<>();
     List<String> itemsWithTableWord = new ArrayList<>();
-    List<Integer> addToCart = new ArrayList<>();
-
     HashMap<String,String> mapWithoutTable = new HashMap<>();
 
     public void validateEachProductName(WebDriver driver, String tableWord) {
@@ -46,35 +37,23 @@ public class SearchPage {
                 BrowserUtils.scrollWithJS(driver, listOfProducts.get(i));
                 if(BrowserUtils.getText(listOfProducts.get(i)).contains(tableWord)){
                     itemsWithTableWord.add(BrowserUtils.getText(listOfProducts.get(i)));
-                    addToCart.add(addToCartButtons.indexOf(i));
-
                 } else {
-//                    itemsWithNoTableWord.add(BrowserUtils.getText(listOfProducts.get(i)));
                     mapWithoutTable.put(BrowserUtils.getText(listOfProducts.get(i)),BrowserUtils.getText(numberOfProduct.get(i)));
                 }
             }
-            nextButton.click();
+            nextPageButton.click();
         }
 
         for (int i = 0; i < itemsWithTableWord.size(); i++) {
             Assert.assertTrue(itemsWithTableWord.get(i).contains(tableWord));
         }
     }
-    public void printOutListOfProductsWithNoTable(){
+    public void printOutListOfProductsWithNoTableWord(){
         System.out.println(mapWithoutTable);
         System.out.println(mapWithoutTable.size());
     }
-    public void addLastItemToCart() throws InterruptedException {
-        String lastItemTitle = itemsWithTableWord.get(itemsWithTableWord.size()-1);
-        for (int i = 0; i < listOfProducts.size(); i++) {
-            WebElement product = listOfProducts.get(i);
-            String productTitle = BrowserUtils.getText(product);
-        if (productTitle.contains(lastItemTitle)) {
-        product.click();
-            break;
-            }
-        }
+    public void addLastItemToCart()  {
+        WebElement lastItem = listOfProducts.get(listOfProducts.size() - 1);
+        lastItem.click();
     }
-    
-
 }

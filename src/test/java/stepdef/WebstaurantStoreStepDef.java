@@ -24,7 +24,7 @@ public class WebstaurantStoreStepDef {
     @Then("User validates that each product title contains word {string}")
     public void user_validates_that_each_product_title_contains_word(String expectedContainedWord) throws InterruptedException {
         search.validateEachProductName(driver,expectedContainedWord);
-        search.printOutListOfProductsWithNoTable();
+        search.printOutListOfProductsWithNoTableWord();
         search.addLastItemToCart();
         addItem.addToCartItem(driver);
     }
